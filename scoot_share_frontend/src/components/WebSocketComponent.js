@@ -13,7 +13,7 @@ const WebSocketComponent = (props) => {
             webSocketOpened.current = true;
             const initializeStomp = () => {
                 if (!stompClient) {
-                    const socket = new SockJS('https://test-scoot-share.onrender.com/ws', null, {
+                    const socket = new SockJS('http://localhost:8080/ws', null, {
                         transports: ['xhr-polling', 'websocket'],
                       });
                     const stomp = Stomp.over(socket);
