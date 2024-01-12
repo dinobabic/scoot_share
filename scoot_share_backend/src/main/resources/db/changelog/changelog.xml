@@ -1,0 +1,351 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+     <!-- Create the 'users' table -->
+    <changeSet id="createUsersTable" author="yourname">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="first_name" type="VARCHAR(255)" />
+            <column name="last_name" type="VARCHAR(255)" />
+            <column name="nickname" type="VARCHAR(255)" />
+            <column name="password" type="VARCHAR(255)" />
+            <column name="card_number" type="VARCHAR(255)" />
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true" />
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints unique="true" />
+            </column>
+            <column name="show_first_name" type="BOOLEAN" />
+            <column name="show_last_name" type="BOOLEAN" />
+            <column name="show_nickname" type="BOOLEAN" />
+            <column name="show_email" type="BOOLEAN" />
+            <column name="id_card" type="MEDIUMTEXT">
+	        </column>
+	        <column name="certificate_of_no_criminal_record" type="MEDIUMTEXT"> 
+	        </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create the 'authority' table -->
+    <changeSet id="createAuthorityTable" author="yourname">
+        <createTable tableName="authority">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+            <column name="authority" type="VARCHAR(255)" />
+            <!-- Add other columns as needed -->
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="createScooterTable" author="yourname">
+        <createTable tableName="scooter">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="owner_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="listing_id" type="BIGINT"> 
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="createScooterImagesTable" author="yourname"> 
+    	<createTable tableName="scooter_images">
+	        <column name="scooter_id" type="BIGINT">
+	            <constraints nullable="false"/>
+	        </column>
+	        <column name="image" type="MEDIUMTEXT">
+	            <constraints nullable="false"/>
+	        </column>
+	    </createTable>
+    </changeSet>
+    
+    <changeSet id="createListingTable" author="your_author_name">
+        <createTable tableName="listing">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="scooter_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location" type="VARCHAR(255)"> 
+                <constraints nullable="false"/>
+            </column>
+            <column name="return_location" type="VARCHAR(255)"> 
+                <constraints nullable="false"/>
+            </column>
+            <column name="return_by_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price_per_kilometer" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="late_return_penalty" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)"> 
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="createChatRoomTable" author="yourname">
+        <createTable tableName="chat_room">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="createUserChatRoomTable" author="yourname">
+        <createTable tableName="user_chat_room">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chat_room_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="createMessageTable" author="yourname">
+        <createTable tableName="message">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sender_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="receiver_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chat_room_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sent_at" type="TIMESTAMP" />
+            <column name="content" type="VARCHAR(255)" />
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="createRentalTable" author="yourname">
+	    <createTable tableName="rental">
+	        <column name="id" type="BIGINT" autoIncrement="true">
+	            <constraints primaryKey="true" nullable="false" />
+	        </column>
+	        <column name="listing_id" type="BIGINT" />
+	        <column name="scooter_renter_id" type="BIGINT" />
+	        <column name="rental_time_start" type="TIMESTAMP" />
+	        <column name="rental_time_end" type="TIMESTAMP" />
+	    </createTable>
+	</changeSet>
+	
+	<changeSet id="createRatingTable" author="yourname">
+        <createTable tableName="rating">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="receiver_id" type="BIGINT" />
+            <column name="sender_id" type="BIGINT" />
+            <column name="grade" type="INTEGER" />
+            <column name="comment" type="VARCHAR(255)" />
+            <column name="rating_time" type="TIMESTAMP" />
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="createTransactionTable" author="yourname">
+        <createTable tableName="transaction">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="rental_id" type="BIGINT" />
+            <column name="total_price" type="INTEGER" />
+            <column name="kilometers_passed" type="DOUBLE" />
+            <column name="time_of_transaction" type="TIMESTAMP" />
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="createImageChangeRequestTable" author="yourname">
+        <createTable tableName="image_change_request">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="scooter_id" type="BIGINT" />
+            <column name="old_image" type="MEDIUMTEXT" />
+            <column name="replacement_image" type="MEDIUMTEXT" />
+            <column name="message" type="VARCHAR(255)" />
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="createNotificationTable" author="yourname">
+        <createTable tableName="notification">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sender_username" type="VARCHAR(255)"/>
+            <column name="receiver_username" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Changeset to add foreign key for rental_id -->
+    <changeSet id="addForeignKeyForRentalInTransaction" author="yourname">
+        <addForeignKeyConstraint
+            baseTableName="transaction"
+            baseColumnNames="rental_id"
+            constraintName="fk_transaction_rental"
+            referencedTableName="rental"
+            referencedColumnNames="id"
+            onDelete="CASCADE"  
+        />
+    </changeSet>
+
+    <changeSet id="addForeignKeyForUserRating" author="yourname">
+        <addForeignKeyConstraint
+            baseTableName="rating"
+            baseColumnNames="receiver_id"
+            constraintName="fk_rating_receiver_user"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            onDelete="CASCADE" 
+        />
+        <addForeignKeyConstraint
+            baseTableName="rating"
+            baseColumnNames="sender_id"
+            constraintName="fk_rating_sender_user"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <!-- Add foreign key constraint between 'authority' and 'users' tables -->
+    <changeSet id="addAuthorityForeignKey" author="yourname">
+        <addForeignKeyConstraint
+            baseTableName="authority"
+            baseColumnNames="user_id"
+            constraintName="fk_authority_user"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            onDelete="CASCADE"
+        />
+    </changeSet>
+    
+    <changeSet id="addUserAndScooterForeignKey" author="yourname">
+    	<!-- Add a Foreign Key Constraint for Owner Relationship -->
+	    <addForeignKeyConstraint 
+	    	baseTableName="scooter" 
+	    	baseColumnNames="owner_id"
+			referencedTableName="users" 
+			referencedColumnNames="id"
+			constraintName="scooter_owner_fk"
+			onUpdate="CASCADE"
+			onDelete="CASCADE"/>
+    </changeSet>
+    
+    <!-- Foreign key constraint for scooter_id -->
+    <changeSet id="addForeignKeyConstraintListingScooter" author="your_author_name">
+        <addForeignKeyConstraint
+                baseTableName="listing"
+                baseColumnNames="scooter_id"
+                constraintName="fk_listing_scooter"
+                referencedTableName="scooter"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+    </changeSet>
+    
+    <!-- Add foreign key constraint between 'chatroom' and 'user' tables -->
+    <changeSet id="addUserToChatRoomForeignKey" author="yourname">
+	    <addForeignKeyConstraint
+	        baseTableName="user_chat_room"
+	        baseColumnNames="user_id"
+	        constraintName="fk_user_chatroom_user"
+	        referencedTableName="users"
+	        referencedColumnNames="id"
+	        onDelete="CASCADE"
+	    />
+	    <addForeignKeyConstraint
+	        baseTableName="user_chat_room"
+	        baseColumnNames="chat_room_id"
+	        constraintName="fk_user_chatroom_chatroom"
+	        referencedTableName="chat_room"
+	        referencedColumnNames="id"
+	        onDelete="CASCADE"
+	    />
+	</changeSet>
+    
+    <!-- Add foreign key constraint between 'message' and 'user' tables -->
+    <changeSet id="addMessageSenderForeignKey" author="yourname">
+        <addForeignKeyConstraint
+            baseTableName="message"
+            baseColumnNames="sender_id"
+            constraintName="fk_message_sender"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            onDelete="CASCADE"
+        />
+    </changeSet>
+    
+     <!-- Add foreign key constraint between 'message' and 'chatroom' tables -->
+    <changeSet id="addMessageChatRoomForeignKey" author="yourname">
+	    <addForeignKeyConstraint
+	        baseTableName="message"
+	        baseColumnNames="chat_room_id"
+	        constraintName="fk_message_chatroom"
+	        referencedTableName="chat_room"
+	        referencedColumnNames="id"
+	        onDelete="CASCADE"
+	    />
+	</changeSet>
+    
+    <!-- Add foreign key constraint between 'message' and 'user' tables for receiver -->
+    <changeSet id="addMessageReceiverForeignKey" author="yourname">
+        <addForeignKeyConstraint
+            baseTableName="message"
+            baseColumnNames="receiver_id"
+            constraintName="fk_message_receiver"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            onDelete="CASCADE"
+        />
+    </changeSet>
+    
+    <changeSet id="addForeignKeyForListing" author="yourname">
+	    <addForeignKeyConstraint
+	        baseTableName="rental"
+	        baseColumnNames="listing_id"
+	        constraintName="fk_rental_listing"
+	        referencedTableName="listing"
+	        referencedColumnNames="id"
+	        onDelete="CASCADE"  
+	    />
+	</changeSet>
+	
+	<changeSet id="addForeignKeyForScooterRenter" author="yourname">
+	    <addForeignKeyConstraint
+	        baseTableName="rental"
+	        baseColumnNames="scooter_renter_id"
+	        constraintName="fk_rental_scooter_renter"
+	        referencedTableName="users"
+	        referencedColumnNames="id"
+	        onDelete="CASCADE"  
+	    />
+	</changeSet>
+    
+    
+    <changeSet id="1" author="yourname">
+        <sql>
+            INSERT INTO users (first_name, last_name, nickname, password, email, username, show_first_name, show_last_name, show_nickname, show_email) VALUES 
+            	('admin', 'admin', 'admin', '$2a$10$7uaP3p8uWXZDjzSu0j9iteKtNPbgJVJ43Hm1lSqSgshEkgD17k8Yq', 'admin@gmail.com', 'admin', false, false, false, false);
+            INSERT INTO authority (authority, user_id) VALUES ('ROLE_ADMIN', 1);
+        </sql>
+    </changeSet>
+</databaseChangeLog>
